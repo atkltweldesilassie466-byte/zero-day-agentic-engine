@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-Day Agentic Engine | Cyber AI Defense</title>
+    <!-- Google Fonts for Cyber Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --red-glow: #ef4444;
+            --green-glow: #10b981;
+            --accent-cyan: #38bdf8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: #f3f4f6;
+            min-height: 100vh;
+            padding: 30px 20px;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .container { max-width: 1250px; margin: 0 auto; }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            padding: 35px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--red-glow), var(--accent-cyan), var(--green-glow));
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px; background-color: var(--accent-cyan);
+            border-radius: 50%; box-shadow: 0 0 10px var(--accent-cyan);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        .header h1 {
+            font-size: 2.8rem; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -1px; margin-bottom: 8px;
+        }
+
+        .header p { color: #94a3b8; font-size: 1.05rem; }
+
+        /* Input Control Panel */
+        .control-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #cbd5e1; }
+        
+        input[type="password"], textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(3, 7, 18, 0.8);
+            color: #38bdf8;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="password"]:focus, textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+        }
+
+        textarea { height: 110px; resize: vertical; line-height: 1.6; }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #dc2626 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(5, 150, 105, 0.4);
+        }
+
+        /* Dual Dashboard */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+        .agent-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+            min-height: 320px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .red-card { border-top: 4px solid var(--red-glow); }
+        .blue-card { border-top: 4px solid var(--green-glow); }
+
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 15px;
+        }
+
+        .card-header h2 { font-size: 1.25rem; font-weight: 700; }
+        .red-card h2 { color: var(--red-glow); }
+        .blue-card h2 { color: var(--green-glow); }
+
+        .agent-tag {
+            font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+        }
+        .red-tag { background: rgba(239, 68, 68, 0.15); color: var(--red-glow); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .blue-tag { background: rgba(16, 185, 129, 0.15); color: var(--green-glow); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .content-box {
+            font-family: 'Fira Code', monospace; font-size: 13.5px; line-height: 1.7;
+            white-space: pre-wrap; word-break: break-word; color: #e2e8f0;
+        }
+
+        .placeholder-text { color: #64748b; font-style: italic; }
+
+        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="status-badge"><div class="pulse-dot"></div> Live Autonomous Swarm</div>
+        <h1>⚔️ Zero-Day Agentic Engine 🛡️</h1>
+        <p>Real-Time Dual-AI Cyber Attack & Self-Healing Defense Dashboard</p>
+    </div>
+
+    <div class="control-panel">
+        <label for="apiKey">Gemini API Authentication Key</label>
+        <input type="password" id="apiKey" placeholder="Paste your Gemini API Key here (AIzaSy...)">
+
+        <label for="userCode">Target Python Source Code for Vulnerability Audit</label>
+        <textarea id="userCode">def get_user(db, username):
+    query = 'SELECT * FROM users WHERE user = ' + username
+    return db.execute(query)</textarea>
+
+        <button onclick="runSimulation()">🔥 Execute Cyber Attack & Self-Healing Simulation</button>
+    </div>
+
+    <div class="dashboard">
+        <div class="agent-card red-card">
+            <div class="card-header">
+                <h2>🔴 Red Team Agent</h2>
+                <span class="agent-tag red-tag">Offensive AI</span>
+            </div>
+            <div id="redResult" class="content-box placeholder-text">Awaiting execution launch...</div>
+        </div>
+
+        <div class="agent-card blue-card">
+            <div class="card-header">
+                <h2>🟢 Blue Team Agent</h2>
+                <span class="agent-tag blue-tag">Defensive AI</span>
+            </div>
+            <div id="blueResult" class="content-box placeholder-text">Awaiting threat telemetry...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function runSimulation() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const code = document.getElementById('userCode').value.trim();
+    const redBox = document.getElementById('redResult');
+    const blueBox = document.getElementById('blueResult');
+
+    if (!apiKey) { alert("Please input a valid Gemini API Key!"); return; }
+    if (!code) { alert("Please provide Python target code!"); return; }
+
+    redBox.classList.remove('placeholder-text');
+    blueBox.classList.remove('placeholder-text');
+
+    redBox.innerText = '🤖 Analyzing attack vectors & synthesizing Zero-Day exploit...';
+    blueBox.innerText = '⏳ Intercepting threat telemetry...';
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+    try {
+        const redRes = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: `Act as an elite Red Team Cyber Agent. Analyze this Python code, locate critical vulnerabilities, and generate a Zero-Day exploit payload to break it. Explain briefly:\n${code}` }] }]
+            })
+        });
+        const redData = await redRes.json();
+
+        if (redData.candidates) {
+            redBox.innerText = redData.candidates[0].content.parts[0].text;
+            blueBox.innerText = '🚨 Zero-Day Threat Intercepted! Synthesizing autonomous self-healing patch...';
+
+            const blueRes = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: `Act as an autonomous Blue Team Security Agent. A zero-day attack was generated for this code:\n${code}\n\nWrite a secure, refactored version of the code that completely blocks the exploit and explain your defense strategy.` }] }]
+                })
+            });
+            const blueData = await blueRes.json();
+
+            if (blueData.candidates) {
+                blueBox.innerText = blueData.candidates[0].content.parts[0].text;
+            } else {
+                blueBox.innerText = '❌ Patch Generation Error: ' + JSON.stringify(blueData);
+            }
+        } else {
+            redBox.innerText = '❌ API Error: ' + JSON.stringify(redData);
+        }
+    } catch (e) {
+        redBox.innerText = '❌ Connection Error: ' + e.message;
+    }
+}
+</script>
+
+</body>
+</html>
